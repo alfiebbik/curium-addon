@@ -1,6 +1,6 @@
 plugins {
     java
-    id("fabric-loom") version "1.6-SNAPSHOT"
+    id("fabric-loom") version "1.7-SNAPSHOT"
 }
 
 version = "1.0.0"
@@ -23,14 +23,14 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:1.21.1")
+    minecraft("com.mojang:minecraft:${property("minecraft_version")}")
     mappings(loom.officialMojangMappings())
 
-    modImplementation("net.fabricmc:fabric-loader:0.15.11")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:0.100.1+1.21.1")
+    modImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
 
     // Loads Meteor Client directly into the compiler
-    implementation("meteordevelopment:meteor-client:0.5.8-SNAPSHOT")
+    implementation("meteordevelopment:meteor-client:${property("meteor_version")}")
 }
 
 tasks.withType<JavaCompile> {
