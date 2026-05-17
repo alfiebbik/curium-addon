@@ -23,14 +23,14 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${property("minecraft_version")}")
+    minecraft("com.mojang:minecraft:1.21.1")
     mappings(loom.officialMojangMappings())
 
-    modImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
+    modImplementation("net.fabricmc:fabric-loader:0.15.11")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.102.0+1.21.1")
 
     // Loads Meteor Client directly into the compiler
-    implementation("meteordevelopment:meteor-client:${property("meteor_version")}")
+    implementation("meteordevelopment:meteor-client:0.5.8-SNAPSHOT")
 }
 
 tasks.withType<JavaCompile> {
