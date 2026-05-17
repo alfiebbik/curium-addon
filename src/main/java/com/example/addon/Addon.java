@@ -2,9 +2,9 @@ package com.example.addon;
 
 import com.example.addon.modules.BetaFreecam;
 import com.mojang.logging.LogUtils;
-import minegame.meteorclient.addons.MeteorAddon;
-import minegame.meteorclient.systems.modules.Modules;
-import minegame.meteorclient.systems.modules.categories.Render;
+import meteordevelopment.meteorclient.addons.MeteorAddon;
+import meteordevelopment.meteorclient.systems.modules.Modules;
+import meteordevelopment.meteorclient.systems.modules.categories.Render;
 import org.slf4j.Logger;
 
 public class Addon extends MeteorAddon {
@@ -14,7 +14,7 @@ public class Addon extends MeteorAddon {
     public void onInitialize() {
         LOG.info("Initializing My Custom Addon!");
 
-        // Modules
+        // Only load the module we actually created and fixed
         Modules.get().add(new BetaFreecam(Modules.get().getGroup(Render.class)));
     }
 
