@@ -8,6 +8,16 @@ group = "com.example.addon"
 
 repositories {
     mavenCentral()
+    // Fabric repository for Minecraft libraries and mappings
+    maven {
+        name = "Fabric"
+        url = uri("https://maven.fabricmc.net/")
+    }
+    // Mojang repository for official game files
+    maven {
+        name = "Mojang"
+        url = uri("https://libraries.minecraft.net/")
+    }
     maven {
         name = "Meteor Releases"
         url = uri("https://maven.meteordev.org/releases")
