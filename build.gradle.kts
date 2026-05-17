@@ -1,6 +1,6 @@
 plugins {
     java
-    id("fabric-loom") version "1.7-SNAPSHOT"
+    id("fabric-loom") version "1.7-stable"
 }
 
 version = "1.0.0"
