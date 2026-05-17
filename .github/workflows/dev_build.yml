@@ -22,14 +22,6 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
-        with:
-          cache-disabled: true
 
       - name: Build with Gradle
-        run: chmod +x ./gradlew && ./gradlew build --no-build-cache --refresh-dependencies
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: curium-addon-jar
-          path: build/libs/*.jar
+        run: chmod +x ./gradlew && ./gradlew build

@@ -13,10 +13,6 @@ repositories {
         url = uri("https://maven.fabricmc.net/")
     }
     maven {
-        name = "Mojang"
-        url = uri("https://libraries.minecraft.net/")
-    }
-    maven {
         name = "Meteor Releases"
         url = uri("https://maven.meteordev.org/releases")
     }
@@ -37,8 +33,8 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:0.15.11")
     modImplementation("net.fabricmc.fabric-api:fabric-api:0.102.0+1.21.1")
 
-    // Changed to modImplementation to force Loom to map Meteor Client to the environment
-    modImplementation("meteordevelopment:meteor-client:0.5.8-SNAPSHOT")
+    // This forces Fabric Loom to pull Meteor Client and map it into the code properly
+    modCompileOnly("meteordevelopment:meteor-client:0.5.8-SNAPSHOT")
 }
 
 tasks.withType<JavaCompile> {
