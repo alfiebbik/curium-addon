@@ -6,21 +6,15 @@ plugins {
 version = "1.0.0"
 group = "com.example.addon"
 
-// THE MISSING LINK: This tells Loom to actually unpack Minecraft for the compiler
-loom {
-    splitEnvironmentSourceSets()
-    mods {
-        register("addon") {
-            sourceSet(sourceSets.main.get())
-        }
-    }
-}
-
 repositories {
     mavenCentral()
     maven {
         name = "Fabric"
         url = uri("https://maven.fabricmc.net/")
+    }
+    maven {
+        name = "Mojang"
+        url = uri("https://libraries.minecraft.net/")
     }
     maven {
         name = "Meteor Releases"
@@ -34,10 +28,6 @@ repositories {
         name = "TerraformersMC"
         url = uri("https://maven.terraformersmc.com/releases/")
     }
-    maven {
-        name = "Mojang"
-        url = uri("https://libraries.minecraft.net/")
-    }
 }
 
 dependencies {
@@ -47,8 +37,10 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:0.15.11")
     modImplementation("net.fabricmc.fabric-api:fabric-api:0.102.0+1.21.1")
 
-    // Correctly injects Meteor Client into the Fabric environment
-    modImplementation("meteordevelopment:meteor-client:0.5.8-SNAPSHOT")
+    // Crucial: This tells Fabric Loom to load Meteor without attempting to remap its internal code
+    modImplementation("meteordevelopment:meteor-client:0.5.8-SNAPSHOT") {
+        setTransitive(false)
+    }
 }
 
 tasks.withType<JavaCompile> {
@@ -59,4 +51,13 @@ tasks.withType<JavaCompile> {
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.processResources {
+    inputs.property("version", project.version)
+    filteringCharset = "UTF-8"
+
+    filesMatching("fabric.mod.json") {
+        expand("version" to project.version)
+    }
 }
