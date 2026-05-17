@@ -8,12 +8,10 @@ group = "com.example.addon"
 
 repositories {
     mavenCentral()
-    // Fabric repository for Minecraft libraries and mappings
     maven {
         name = "Fabric"
         url = uri("https://maven.fabricmc.net/")
     }
-    // Mojang repository for official game files
     maven {
         name = "Mojang"
         url = uri("https://libraries.minecraft.net/")
@@ -39,8 +37,8 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:0.15.11")
     modImplementation("net.fabricmc.fabric-api:fabric-api:0.102.0+1.21.1")
 
-    // Loads Meteor Client directly into the compiler
-    implementation("meteordevelopment:meteor-client:0.5.8-SNAPSHOT")
+    // Changed to modImplementation to force Loom to map Meteor Client to the environment
+    modImplementation("meteordevelopment:meteor-client:0.5.8-SNAPSHOT")
 }
 
 tasks.withType<JavaCompile> {
