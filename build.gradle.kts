@@ -1,76 +1,44 @@
 plugins {
-    alias(libs.plugins.fabric.loom)
+    java
+    id("fabric-loom") version "1.7-SNAPSHOT"
 }
 
-base {
-    archivesName = properties["archives_base_name"] as String
-    version = libs.versions.mod.version.get()
-    group = properties["maven_group"] as String
-}
+version = "1.0.0"
+group = "com.example.addon"
 
 repositories {
+    mavenCentral()
     maven {
-        name = "meteor-maven"
+        name = "Meteor Releases"
         url = uri("https://maven.meteordev.org/releases")
     }
     maven {
-        name = "meteor-maven-snapshots"
+        name = "Meteor Snapshots"
         url = uri("https://maven.meteordev.org/snapshots")
+    }
+    maven {
+        name = "TerraformersMC"
+        url = uri("https://maven.terraformersmc.com/releases/")
     }
 }
 
 dependencies {
-    // Fabric
-    minecraft(libs.minecraft)
-    implementation(libs.fabric.loader)
+    minecraft("com.mojang:minecraft:1.21.1")
+    mappings(loom.officialMojangMappings())
 
-    // Meteor
-    implementation(libs.meteor.client)
+    modImplementation("net.fabricmc:fabric-loader:0.15.11")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:0.100.1+1.21.1")
+
+    // Loads Meteor Client directly into the compiler
+    implementation("meteordevelopment:meteor-client:0.5.8-SNAPSHOT")
+}
+
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+    options.release.set(21)
 }
 
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(libs.versions.jdk.get().toInt()))
-    }
-}
-
-fun toMinecraftCompat(version: String): String {
-    val match = Regex("""^(\d{2})\.([1-9]\d*)(?:\.([1-9]\d*))?$""")
-        .matchEntire(version)
-        ?: error("Invalid Minecraft version format: $version. Expected YY.D or YY.D.H")
-
-    val (year, drop, _) = match.destructured
-    return "~$year.$drop"
-}
-
-tasks {
-    processResources {
-        val propertyMap = mapOf(
-            "version" to project.version,
-            "minecraft_version" to toMinecraftCompat(libs.versions.minecraft.get()),
-            "jdk_version" to libs.versions.jdk.get(),
-        )
-
-        inputs.properties(propertyMap)
-        filesMatching("fabric.mod.json") {
-            expand(propertyMap)
-        }
-    }
-
-    jar {
-        inputs.property("archivesName", project.base.archivesName.get())
-
-        from("LICENSE") {
-            rename { "${it}_${inputs.properties["archivesName"]}" }
-        }
-    }
-
-    withType<JavaCompile>().configureEach {
-        options.compilerArgs.addAll(
-            listOf(
-                "-Xlint:deprecation",
-                "-Xlint:unchecked"
-            )
-        )
-    }
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
