@@ -2,9 +2,9 @@ package com.example.addon;
 
 import com.example.addon.modules.BetaFreecam;
 import com.mojang.logging.LogUtils;
-import minecraft.meteorclient.addons.MeteorAddon;
-import minecraft.meteorclient.systems.modules.Modules;
-import minecraft.meteorclient.systems.modules.categories.Render;
+import minegame.meteorclient.addons.MeteorAddon;
+import minegame.meteorclient.systems.modules.Modules;
+import minegame.meteorclient.systems.modules.categories.Render;
 import org.slf4j.Logger;
 
 public class Addon extends MeteorAddon {
@@ -20,8 +20,6 @@ public class Addon extends MeteorAddon {
 
     @Override
     public void onRegisterCategories() {
-        // If you want to make your own custom GUI tab later, you do it here.
-        // For now, we are putting Freecam into Meteor's standard RENDER tab.
     }
 
     @Override

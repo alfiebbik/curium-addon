@@ -1,8 +1,8 @@
 package com.example.addon.modules;
 
-import minecraft.meteorclient.systems.modules.Category;
-import minecraft.meteorclient.systems.modules.Module;
-import minecraft.meteorclient.events.world.TickEvent;
+import minegame.meteorclient.systems.modules.Category;
+import minegame.meteorclient.systems.modules.Module;
+import minegame.meteorclient.events.world.TickEvent;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.network.OtherClientPlayerEntity;
 import net.minecraft.entity.Entity;
