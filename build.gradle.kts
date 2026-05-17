@@ -6,6 +6,16 @@ plugins {
 version = "1.0.0"
 group = "com.example.addon"
 
+// THE MISSING LINK: This tells Loom to actually unpack Minecraft for the compiler
+loom {
+    splitEnvironmentSourceSets()
+    mods {
+        register("addon") {
+            sourceSet(sourceSets.main.get())
+        }
+    }
+}
+
 repositories {
     mavenCentral()
     maven {
@@ -24,6 +34,10 @@ repositories {
         name = "TerraformersMC"
         url = uri("https://maven.terraformersmc.com/releases/")
     }
+    maven {
+        name = "Mojang"
+        url = uri("https://libraries.minecraft.net/")
+    }
 }
 
 dependencies {
@@ -33,8 +47,8 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:0.15.11")
     modImplementation("net.fabricmc.fabric-api:fabric-api:0.102.0+1.21.1")
 
-    // This forces Fabric Loom to pull Meteor Client and map it into the code properly
-    modCompileOnly("meteordevelopment:meteor-client:0.5.8-SNAPSHOT")
+    // Correctly injects Meteor Client into the Fabric environment
+    modImplementation("meteordevelopment:meteor-client:0.5.8-SNAPSHOT")
 }
 
 tasks.withType<JavaCompile> {
